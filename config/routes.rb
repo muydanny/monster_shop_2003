@@ -3,20 +3,14 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-  get "/login", to: "sessions#new"
-  post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
+  get "/login", action: :new, controller: "sessions"
+  post "/login", action: :create, controller: "sessions"
+  delete "/logout", action: :destroy, controller: "sessions"
 
-  get "/admin", to: "admins#show"
+  get "/admin", action: :show, controller: "admins"
 
   namespace :admin do
-    get '/merchants/:merchant_id', to: "merchants#show"
-    get '/merchants', to: "merchants#index"
-    get "/merchants/status/:id", to: "merchants#update"
-    get '/users', to: 'users#index'
-    get '/profile/:user_id', to: 'users#show'
-    patch '/orders/:order_id', to: 'orders#update'
-    get "/users/:user_id/orders/:order_id", to: "orders#show"
+    resources :merchants, only: [:show, :index]
   end
 
   get "/merchant", to: "merchant#show"
@@ -82,5 +76,5 @@ Rails.application.routes.draw do
   get "/profile/orders", to: "orders#index"
   patch "/profile/orders/:id", to: "orders#update"
 
-  get "error404", to: "errors#show"
+  get "error404", action: :show, controller: "errors"
 end
