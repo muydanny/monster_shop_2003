@@ -11,6 +11,15 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :merchants, only: [:show, :index]
+    resources :users, only: [:index]
+    resources :orders, only: [:update]
+
+    resources :users, only: [:show] do 
+      resources :orders, only: [:show]
+    end
+
+    get "/profile/:user_id", action: :show, controller: "users"
+    get "/merchants/status/:id", action: :update, controller: "merchants"
   end
 
   get "/merchant", to: "merchant#show"
