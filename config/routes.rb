@@ -61,13 +61,13 @@ Rails.application.routes.draw do
   patch "/reviews/:id", to: "reviews#update"
   delete "/reviews/:id", to: "reviews#destroy"
 
-  get "/cart", to: "cart#show"
-  delete "/cart", to: "cart#destroy"
+  get "/cart", action: :show, controller: "cart"
+  delete "/cart", action: :destroy, controller: "cart"
 
   namespace :cart do
-    post "/:item_id", to: "items#new"
-    delete "/:item_id", to: "items#destroy"
-    patch "/:item_id", to: "items#update"
+    post "/:item_id", action: :new "items"
+    delete "/:item_id", action: :destroy "items"
+    patch "/:item_id", to: :update "items"
   end
 
   get "/profile", to: "users#show"
